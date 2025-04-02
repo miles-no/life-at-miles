@@ -1,0 +1,94 @@
+/* stylelint-disable-next-line import-notation */
+@import "tailwindcss";
+
+/* stylelint-disable-next-line at-rule-no-unknown */
+@plugin '@tailwindcss/forms';
+
+
+/* stylelint-disable-next-line at-rule-no-unknown */
+@plugin "daisyui" {
+  /* stylelint-disable-next-line property-no-unknown */
+  themes: light --default, dark --prefersdark, miles-light;
+}
+
+/* stylelint-disable-next-line at-rule-no-unknown */
+@plugin "daisyui/theme" {
+  /* stylelint-disable-next-line property-no-unknown */
+  name: "miles-light";
+  /* stylelint-disable-next-line property-no-unknown */
+  default: false;
+  /* stylelint-disable-next-line property-no-unknown */
+  prefersdark: false;
+  color-scheme: light;
+
+  --color-base-100: rgb(255 255 255);
+  --color-base-200: #FFFCF8;
+  --color-base-300: #FBF0E5;
+  --color-base-400: #F6EEF1;
+  --color-base-content: rgb(69 14 33);
+  --color-primary: rgb(69 14 33);
+  --color-primary-content: rgb(255 255 255);
+  --color-secondary: rgb(251 240 230);
+  --color-secondary-content: rgb(69 14 33);
+  --color-accent: rgb(255 47 59);
+  --color-accent-content: rgb(255 255 255);
+  --color-neutral: #F6EEF1; /* Updated color for light theme */
+  --color-neutral-content: rgb(30 30 30); /* Improved contrast for light theme */
+  --color-info: rgb(2 181 255);
+  --color-info-content: #1E1E1E;
+  --color-success: rgb(5 170 109);
+  --color-success-content: rgb(255 255 255);
+  --color-warning: rgb(255 191 0);
+  --color-warning-content: #1E1E1E;
+  --color-error: rgb(219 0 1);
+  --color-error-content: #fff;
+  --radius-selector: 1rem;
+  --radius-field: 0.5rem;
+  --radius-box: 2rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+/* stylelint-disable-next-line at-rule-no-unknown */
+@plugin "daisyui/theme" {
+  /* stylelint-disable-next-line property-no-unknown */
+  name: "miles-dark";
+  /* stylelint-disable-next-line property-no-unknown */
+  default: false;
+  /* stylelint-disable-next-line property-no-unknown */
+  prefersdark: true;
+  color-scheme: dark;
+
+  --color-base-100: rgb(18 18 18);
+  --color-base-200: rgb(30 30 30);
+  --color-base-300: rgb(24 24 24);
+  --color-base-400: rgb(38 38 38);
+  --color-base-content: rgb(255 255 255);
+  --color-primary: rgb(251 240 230);
+  --color-primary-content: rgb(69 14 33);
+  --color-secondary: rgb(38 38 38);
+  --color-secondary-content: rgb(255 255 255);
+  --color-accent: rgb(255 67 79);
+  --color-accent-content: rgb(255 255 255);
+  --color-neutral: rgb(38 38 38);
+  --color-neutral-content: rgb(255 255 255);
+  --color-info: rgb(32 211 255);
+  --color-info-content: #1E1E1E;
+  --color-success: rgb(35 200 139);
+  --color-success-content: #FFF;
+  --color-warning: rgb(255 201 20);
+  --color-warning-content: #1E1E1E;
+  --color-error: rgb(239 20 21);
+  --color-error-content: #FFF;
+  --radius-selector: 1rem;
+  --radius-field: 0.5rem;
+  --radius-box: 2rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0.8;
+  --noise: 0.1;
+}

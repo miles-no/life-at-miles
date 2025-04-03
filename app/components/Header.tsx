@@ -9,7 +9,7 @@ export default function Header() {
                     <div className="text-[35px] pt-[-4px]">Life@</div>
                     <MilesIcon />
                 </div>
-                <div>Logout</div>
+                {/* <div>Logout</div> */}
             </div>
             <div className="flex flex-col items-center justify-center pt-[32px]">
                 <div className="text-[35px] font-[500]">Velkommen til en enklere hverdag i Miles! 🌟</div>

@@ -23,7 +23,7 @@
 
   --color-base-100: rgb(255 255 255);
   --color-base-200: #FFFCF8;
-  --color-base-300: #FBF0E5;
+  --color-base-300: #FBF0E4;
   --color-base-400: #F6EEF1;
   --color-base-content: rgb(69 14 33);
   --color-primary: rgb(69 14 33);
@@ -50,6 +50,7 @@
   --border: 1px;
   --depth: 0;
   --noise: 0;
+  --color-custom-blue: rgb(0 122 255);
 }
 
 /* stylelint-disable-next-line at-rule-no-unknown */
@@ -91,4 +92,5 @@
   --border: 1px;
   --depth: 0.8;
   --noise: 0.1;
+  --color-custom-blue: rgb(0 122 255);
 }

@@ -24,11 +24,11 @@
   --color-base-100: rgb(255 255 255);
   --color-base-200: #FFFCF8;
   --color-base-300: #FBF0E4;
-  --color-base-400: #F6EEF1;
+  --color-base-400: #FBF0E5;
   --color-base-content: rgb(69 14 33);
-  --color-primary: rgb(69 14 33);
+  --color-primary: #450D21;
   --color-primary-content: rgb(255 255 255);
-  --color-secondary: rgb(251 240 230);
+  --color-secondary: #FF303B;
   --color-secondary-content: rgb(69 14 33);
   --color-accent: rgb(255 47 59);
   --color-accent-content: rgb(255 255 255);
@@ -68,9 +68,9 @@
   --color-base-300: rgb(24 24 24);
   --color-base-400: rgb(38 38 38);
   --color-base-content: rgb(255 255 255);
-  --color-primary: rgb(251 240 230);
+  --color-primary: #450D21;
   --color-primary-content: rgb(69 14 33);
-  --color-secondary: rgb(38 38 38);
+  --color-secondary: #FF303B;
   --color-secondary-content: rgb(255 255 255);
   --color-accent: rgb(255 67 79);
   --color-accent-content: rgb(255 255 255);

@@ -10,11 +10,11 @@ type ExternalLinkCardProps = {
     index: number
     link: ExternalLink
 }
-
+ 
 function ExternalLinkCard(props: ExternalLinkCardProps) {
     const { index, link } = props
     return (
-        <a id={`externallink-${index}`} href={link.url} className="card relative group w-[393px] h-[317px] border-3 rounded-[30px] ">
+        <a id={`externallink-${index}`} href={link.url} className="card relative group max-w-[393px] h-[317px] border-2 rounded-[30px] ">
             <div className="card-body">
                 <h1 className="card-title text-[36px] font-[600]">{link.title}</h1>
                 <p className="text-[20px]">{link.description}</p>
@@ -31,12 +31,12 @@ function ExternalLinkCard(props: ExternalLinkCardProps) {
 
 export default function ExternalLinks({externalLinks}: ExternalLinksProps) {
     return (
-        <div className="flex justify-center mt-[64px] pb-[64px]">
-        <div className="flex flex-wrap gap-x-16 gap-y-8 justify-center max-w-[1460px]">
-            {externalLinks.map((link, index) => (
-                    <ExternalLinkCard key={index} index={index} link={link} />
-            ))}
-        </div>
+        <div className="flex justify-center mt-[64px] pb-[128px]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                {externalLinks.map((link, index) => (
+                        <ExternalLinkCard key={index} index={index} link={link} />
+                ))}
+            </div>
         </div>
     )
 }

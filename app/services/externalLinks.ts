@@ -1,5 +1,7 @@
-export async function getExternalLinksAsync() {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+import type { ExternalLink } from "~/types/ExternalLink";
+
+export async function getExternalLinksAsync(): Promise<Array<ExternalLink>> {
+    await new Promise((resolve) => setTimeout(resolve, 200));
   
     const externalLinks = [
         {
@@ -14,7 +16,7 @@ export async function getExternalLinksAsync() {
         },
         {
             title: "XLedger",
-            url: "https://logit.miles.no/timesheet/daily",
+            url: "https://www.xledger.net/auth/signin",
             description: "Hold orden på økonomien med registrering av utgifter, reiser og timer. Få full oversikt over økonomiske detaljer på en effektiv og oversiktlig måte. 📊",
         },
         {

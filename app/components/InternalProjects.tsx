@@ -116,14 +116,14 @@ function InternalProjectCard(props: InternalProjectCardProps) {
     )
 }
 
-export default function ExternalProjects ({ internalProjects }: InternalProjectsProps) {
+export default function InternalProjects ({ internalProjects }: InternalProjectsProps) {
     return (
         <div>
             <div className="ml-[32px] text-[36px] font-[500] mb-[32px]">
                 <div>Her er de interne prosjekter vi jobber i mellom oppdrag.</div>
                 <div className="text-secondary">Vil du bli med?</div>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 pb-[64px]">
                 {internalProjects.map((project, index) => (
                         <InternalProjectCard key={index} index={index} project={project} />
                 ))}

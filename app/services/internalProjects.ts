@@ -6,7 +6,7 @@ export async function getInternalProjectsAsync(): Promise<Array<InternalProject>
     return [
         {
             title: "Paycheck - hold oversikt over lønnslipper",
-            contactUrl: "https://app.slack.com/huddle/T027494JT/D08M3CZTF5W",
+            contactUrl: "https://miles-no.slack.com/team/U037JA5CV35",
             tags: [
                 { label: "UX/UI" },
                 { label: "Frontend" },
@@ -15,7 +15,7 @@ export async function getInternalProjectsAsync(): Promise<Array<InternalProject>
         },
         {
             title: "Integrering av Logit i Paycheck",
-            contactUrl: "https://app.slack.com/huddle/T027494JT/D08M3CZTF5W",
+            contactUrl: "https://miles-no.slack.com/team/U037JA5CV35",
             tags: [
                 { label: "UX/UI" },
                 { label: "Frontend" },
@@ -24,7 +24,7 @@ export async function getInternalProjectsAsync(): Promise<Array<InternalProject>
         },
         {
             title: "Optimalisering av Meet",
-            contactUrl: "https://app.slack.com/huddle/T027494JT/D08M3CZTF5W",
+            contactUrl: "https://miles-no.slack.com/team/U037JA5CV35",
             tags: [
                 { label: "UX/UI" },
                 { label: "Frontend" },
@@ -33,7 +33,7 @@ export async function getInternalProjectsAsync(): Promise<Array<InternalProject>
         },
         {
             title: "Kabinizer - automatisering av hyttetrekning",
-            contactUrl: "https://app.slack.com/huddle/T027494JT/D08M3CZTF5W",
+            contactUrl: "https://miles-no.slack.com/team/U037JA5CV35",
             tags: [
                 { label: "UX/UI" },
                 { label: "Frontend" },
@@ -42,7 +42,7 @@ export async function getInternalProjectsAsync(): Promise<Array<InternalProject>
         },
         {
             title: "UX portfolio- hjelp Salgsteam for å selge UX kompetanse.",
-            contactUrl: "https://app.slack.com/huddle/T027494JT/D08M3CZTF5W",
+            contactUrl: "https://miles-no.slack.com/team/U037JA5CV35",
             tags: [
                 { label: "UX/UI" },
                 { label: "Tjenestedesign" },

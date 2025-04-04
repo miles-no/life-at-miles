@@ -36,7 +36,7 @@ export async function getExternalLinksAsync(): Promise<Array<ExternalLink>> {
         },
         {
             title: "Konferanser",
-            url: "https://conf.miles.no/konferanser",
+            url: "https://links.miles.no/konf",
             description: "Finn oversikt over konferanser som kollegaene dine skal på. 👩‍🏫",
         },
         {

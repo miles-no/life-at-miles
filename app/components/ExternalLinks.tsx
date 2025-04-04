@@ -10,7 +10,7 @@ type ExternalLinkCardProps = {
     index: number
     link: ExternalLink
 }
-
+ 
 function ExternalLinkCard(props: ExternalLinkCardProps) {
     const { index, link } = props
     return (

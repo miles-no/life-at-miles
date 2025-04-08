@@ -10,7 +10,7 @@ export default function Header({ name }: HeaderProps) {
             <div className="flex flex-row justify-between pt-[64px] pl-[64px] pr-[64px] w-full">
                 <LifeAtMiles />
                 <form method="post" action="/logout">
-                    <button className="on-hover: cursor-pointer" type="submit">Logout</button>
+                    <button className="on-hover: cursor-pointer" type="submit">Logg ut</button>
                 </form>
             </div>
             <div className="flex flex-col items-center justify-center pt-[32px]">

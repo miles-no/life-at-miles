@@ -1,8 +1,6 @@
-# Welcome to React Router!
+# Welcome to Life at Miles! 🎉
 
-A modern, production-ready template for building full-stack React applications using React Router.
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+Your starting point as a new Miles employee. Here you'll find quick access to all our essential systems and tools.
 
 ## Features
 
@@ -70,7 +68,7 @@ If you're familiar with deploying Node applications, the built-in app server is 
 
 Make sure to deploy the output of `npm run build`
 
-```
+```text
 ├── package.json
 ├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
 ├── build/

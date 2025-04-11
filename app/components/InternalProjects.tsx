@@ -81,7 +81,7 @@ function InternalProjectCard(props: InternalProjectCardProps) {
 					{project.tags.map((tag: Tag) => (
 						<p
 							className={`badge px-4 py-2 badge-outline badge-neutral ${cardStyle.tagBorderColor} ${cardStyle.tagTextColor}`}
-							key={tag.id}
+							key={tag.label}
 						>
 							{tag.label}
 						</p>
@@ -102,10 +102,10 @@ export default function InternalProjects({
 				<div className="text-accent">Vil du bli med?</div>
 			</div>
 			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 pb-16">
-				{internalProjects.map((project) => (
+				{internalProjects.map((project, index) => (
 					<InternalProjectCard
-						key={project.id}
-						index={project.id}
+						key={project.contactUrl}
+						index={index}
 						project={project}
 					/>
 				))}

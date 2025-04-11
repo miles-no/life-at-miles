@@ -24,8 +24,7 @@ export async function getExternalLinksAsync(): Promise<Array<ExternalLink>> {
 		{
 			title: "Flowcase",
 			url: "https://miles.cvpartner.com/dashboard",
-			description:
-				"Oppdater og finpuss CV-en din for spennende nye muligheter. ✍️",
+			description: "Oppdater og finpuss CV-en din for spennende nye muligheter. ✍️",
 		},
 		{
 			title: "Simployer",

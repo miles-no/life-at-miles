@@ -29,11 +29,7 @@ export async function getInternalProjectsAsync(): Promise<
 		{
 			title: "UX portfolio- hjelp Salgsteam for å selge UX kompetanse.",
 			contactUrl: "https://miles-no.slack.com/team/U037JA5CV35",
-			tags: [
-				{ label: "UX/UI" },
-				{ label: "Tjenestedesign" },
-				{ label: "Salg" },
-			],
+			tags: [{ label: "UX/UI" }, { label: "Tjenestedesign" }, { label: "Salg" }],
 		},
 	]
 }

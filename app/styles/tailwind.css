@@ -6,17 +6,17 @@
 
 /* stylelint-disable-next-line at-rule-no-unknown */
 @plugin "daisyui" {
-	/* stylelint-disable-next-line property-no-unknown */
+	/* biome-ignore lint/correctness/noUnknownProperty: LGTM */
 	themes: light --default, dark --prefersdark, miles-light;
 }
 
 /* stylelint-disable-next-line at-rule-no-unknown */
 @plugin "daisyui/theme" {
-	/* stylelint-disable-next-line property-no-unknown */
+	/* biome-ignore lint/correctness/noUnknownProperty: LGTM */
 	name: "miles-light";
-	/* stylelint-disable-next-line property-no-unknown */
+	/* biome-ignore lint/correctness/noUnknownProperty: LGTM */
 	default: false;
-	/* stylelint-disable-next-line property-no-unknown */
+	/* biome-ignore lint/correctness/noUnknownProperty: LGTM */
 	prefersdark: false;
 	color-scheme: light;
 
@@ -55,11 +55,11 @@
 
 /* stylelint-disable-next-line at-rule-no-unknown */
 @plugin "daisyui/theme" {
-	/* stylelint-disable-next-line property-no-unknown */
+	/* biome-ignore lint/correctness/noUnknownProperty: LGTM */
 	name: "miles-dark";
-	/* stylelint-disable-next-line property-no-unknown */
+	/* biome-ignore lint/correctness/noUnknownProperty: LGTM */
 	default: false;
-	/* stylelint-disable-next-line property-no-unknown */
+	/* biome-ignore lint/correctness/noUnknownProperty: LGTM */
 	prefersdark: true;
 	color-scheme: dark;
 

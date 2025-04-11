@@ -25,13 +25,13 @@
 	"javascript": {
 		"formatter": {
 			"quoteStyle": "double",
-			"trailingComma": "all",
+			"trailingCommas": "all",
 			"semicolons": "asNeeded"
 		}
 	},
 	"json": {
 		"formatter": {
-			"trailingCommas": "all"
+			"trailingCommas": "none"
 		}
 	}
 }

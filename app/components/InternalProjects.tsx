@@ -19,23 +19,25 @@ type CardStyleTheme = {
 }
 
 const generateCardStyleTheme = (index: number): CardStyleTheme => {
-    if (index % 6 === 1) return {
-        titleColor: "text-primary-content",
-        textColor: "text-primary-content",
-        backgroundColor: "bg-primary",
-        buttonColor: "btn-primary-content",
-        tagBorderColor: "border-primary-content",
-        tagTextColor: "text-primary-content"
-    }
+    if (index % 6 === 1)
+        return {
+            titleColor: "text-primary-content",
+            textColor: "text-primary-content",
+            backgroundColor: "bg-primary",
+            buttonColor: "btn-primary-content",
+            tagBorderColor: "border-primary-content",
+            tagTextColor: "text-primary-content",
+        }
 
-    if (index % 6 === 3) return {
-        titleColor: "text-accent-content",
-        textColor: "text-accent-content",
-        backgroundColor: "bg-accent",
-        buttonColor: "btn-accent-content",
-        tagBorderColor: "border-accent-content",
-        tagTextColor: "text-accent-content"
-    }
+    if (index % 6 === 3)
+        return {
+            titleColor: "text-accent-content",
+            textColor: "text-accent-content",
+            backgroundColor: "bg-accent",
+            buttonColor: "btn-accent-content",
+            tagBorderColor: "border-accent-content",
+            tagTextColor: "text-accent-content",
+        }
 
     return {
         titleColor: "text-accent",
@@ -43,7 +45,7 @@ const generateCardStyleTheme = (index: number): CardStyleTheme => {
         backgroundColor: "bg-base",
         buttonColor: "btn-accent",
         tagBorderColor: "border-accent",
-        tagTextColor: "text-base-content"
+        tagTextColor: "text-base-content",
     }
 }
 
@@ -53,20 +55,34 @@ function InternalProjectCard(props: InternalProjectCardProps) {
     const cardStyle = generateCardStyleTheme(index)
 
     return (
-        <a id={`externallink-${index}`} className={`card max-w-md h-2xl border rounded-3xl ${cardStyle.backgroundColor}`}>
+        <a
+            id={`externallink-${index}`}
+            href={project.contactUrl}
+            className={`card max-w-md h-2xl border rounded-3xl ${cardStyle.backgroundColor}`}
+        >
             <div className="card-body">
-                <h1 className={`card-title flex flex-col items-start text-start h-48 text-4xl font-semibold ${cardStyle.titleColor}`}>{project.title}</h1>
+                <h1
+                    className={`card-title flex flex-col items-start text-start h-48 text-4xl font-semibold ${cardStyle.titleColor}`}
+                >
+                    {project.title}
+                </h1>
                 <a
                     href={project.contactUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`btn rounded-full w-32 ${cardStyle.buttonColor}`}>
+                    className={`btn rounded-full w-32 ${cardStyle.buttonColor}`}
+                >
                     Ta kontakt!
                 </a>
-                <div className={`${cardStyle.textColor} mt-4`}>For deg som er interessert i: </div>
+                <div className={`${cardStyle.textColor} mt-4`}>
+                    For deg som er interessert i:{" "}
+                </div>
                 <div className="flex flex-row gap-2">
-                    {project.tags.map((tag: Tag, index: number) => (
-                        <p className={`badge px-4 py-2 badge-outline badge-neutral ${cardStyle.tagBorderColor} ${cardStyle.tagTextColor}`} key={index}>
+                    {project.tags.map((tag: Tag) => (
+                        <p
+                            className={`badge px-4 py-2 badge-outline badge-neutral ${cardStyle.tagBorderColor} ${cardStyle.tagTextColor}`}
+                            key={tag.id}
+                        >
                             {tag.label}
                         </p>
                     ))}
@@ -76,7 +92,9 @@ function InternalProjectCard(props: InternalProjectCardProps) {
     )
 }
 
-export default function InternalProjects({ internalProjects }: InternalProjectsProps) {
+export default function InternalProjects({
+    internalProjects,
+}: InternalProjectsProps) {
     return (
         <div>
             <div className="ml-8 text-4xl font-medium mb-8">
@@ -84,8 +102,12 @@ export default function InternalProjects({ internalProjects }: InternalProjectsP
                 <div className="text-accent">Vil du bli med?</div>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 pb-16">
-                {internalProjects.map((project, index) => (
-                    <InternalProjectCard key={index} index={index} project={project} />
+                {internalProjects.map((project) => (
+                    <InternalProjectCard
+                        key={project.id}
+                        index={project.id}
+                        project={project}
+                    />
                 ))}
             </div>
         </div>

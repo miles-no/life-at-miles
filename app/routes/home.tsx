@@ -19,7 +19,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     <div>
       <Header name={user.given_name} />
       <div className="flex flex-col justify-center items-center">
-        <div className="max-w-[1360px]">
+        <div className="max-w-7xl">
           <ExternalLinks externalLinks={externalLinks} />
           <InternalProjects internalProjects={internalProjects} />
         </div>

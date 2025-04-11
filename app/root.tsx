@@ -7,7 +7,6 @@ import {
   ScrollRestoration,
 } from "react-router";
 
-import blobBackgroundStylesheetUrl from './styles/blobBackground.css?url'
 import fontsStylesheetUrl from './styles/fonts.css?url'
 import globalStylesheetUrl from './styles/global.css?url'
 import tailwindStylesheetUrl from './styles/tailwind.css?url'
@@ -15,7 +14,6 @@ import tailwindStylesheetUrl from './styles/tailwind.css?url'
 import type { Route } from "./+types/root";
 
 export const links: Route.LinksFunction = () => [
-  { rel: 'stylesheet', href: blobBackgroundStylesheetUrl },
   { rel: 'stylesheet', href: tailwindStylesheetUrl },
   { rel: 'stylesheet', href: globalStylesheetUrl },
   { rel: 'stylesheet', href: fontsStylesheetUrl },

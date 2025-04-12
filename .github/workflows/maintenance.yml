@@ -14,6 +14,8 @@ jobs:
       pull-requests: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for proper rebasing
       
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -36,13 +38,22 @@ jobs:
           # Install npm-check-updates globally
           npm install -g npm-check-updates
           
-          # Check for updates and save to JSON file
-          if ncu --packageFile package.json --jsonUpgraded > updates.json; then
-            if [ -s updates.json ] && [ "$(cat updates.json)" != "{}" ]; then
+          # Check for updates and save to file
+          if ncu --packageFile package.json --format group --target minor > updates.txt; then
+            if [ -s updates.txt ] && ! grep -q "All dependencies match the latest package versions" updates.txt; then
               echo "deps_update_needed=true" >> $GITHUB_OUTPUT
-              cat updates.json | jq -r 'to_entries | map("\(.key): \(.value)") | .[]' > updates.txt
             fi
           fi
+        
+      - name: Create required labels
+        if: steps.check-node.outputs.node_update_needed == 'true' || steps.check-deps.outputs.deps_update_needed == 'true'
+        run: |
+          # Create dependencies label if it doesn't exist
+          gh label create dependencies --color "#0366d6" --description "Pull requests that update a dependency file" || true
+          # Create maintenance label if it doesn't exist
+          gh label create maintenance --color "#fef2c0" --description "Repository maintenance tasks" || true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create maintenance PR
         if: steps.check-node.outputs.node_update_needed == 'true' || steps.check-deps.outputs.deps_update_needed == 'true'
@@ -54,7 +65,12 @@ jobs:
           # Create branch
           DATE=$(date '+%Y-%m-%d')
           BRANCH="maintenance-updates-${DATE}"
-          git checkout -b $BRANCH
+          
+          # Fetch latest changes
+          git fetch origin
+          
+          # Create branch from latest main
+          git checkout -b $BRANCH origin/main
           
           # Apply Node.js updates if needed
           if [ "${{ steps.check-node.outputs.node_update_needed }}" = "true" ]; then
@@ -63,7 +79,7 @@ jobs:
           
           # Apply package updates if needed
           if [ "${{ steps.check-deps.outputs.deps_update_needed }}" = "true" ]; then
-            ncu -u
+            ncu -u --target minor
             npm install
           fi
           
@@ -79,26 +95,34 @@ jobs:
             done < updates.txt
           fi
           
-          # Commit and push changes
+          # Commit changes
           git add .
           git commit -m "${MSG}"
-          git push origin $BRANCH
           
-          # Create PR body
-          BODY="This PR includes the following maintenance updates:\n\n"
+          # Push with force-with-lease for safety
+          git push --force-with-lease origin $BRANCH || {
+            # If push fails, try to rebase and push again
+            git fetch origin
+            git rebase origin/main
+            git push --force-with-lease origin $BRANCH
+          }
+          
+          # Create PR body with simpler formatting
+          BODY="🔄 Maintenance Updates"
+          
           if [ "${{ steps.check-node.outputs.node_update_needed }}" = "true" ]; then
-            BODY="${BODY}### Node.js Update\n"
-            BODY="${BODY}• Updated to latest LTS version\n\n"
+            BODY="${BODY} | 📦 Node.js: Updated to latest LTS version"
           fi
+          
           if [ "${{ steps.check-deps.outputs.deps_update_needed }}" = "true" ]; then
-            BODY="${BODY}### Package Updates\n"
-            BODY="${BODY}\`\`\`\n$(cat updates.txt)\n\`\`\`\n\n"
+            BODY="${BODY} | 📚 Package Updates: | $(cat updates.txt)"
           fi
-          BODY="${BODY}Please review the changes and run tests before merging."
+          
+          BODY="${BODY} | ⚠️ Please review changes and run tests before merging."
           
           # Create PR using GitHub CLI
           gh pr create \
-            --title "chore: weekly maintenance updates" \
+            --title "chore: 🔄 weekly maintenance updates" \
             --body "$BODY" \
             --label "dependencies,maintenance" \
             --base main

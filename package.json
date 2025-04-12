@@ -7,9 +7,9 @@
     "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc",
-    "lint": "biome lint .",
     "codefix": "biome check --write .",
-    "update-node-version": "node scripts/update-node-version.js"
+    "update-node-version": "node scripts/update-node-version.js",
+    "check-node-updates": "node scripts/update-node-version.js --check-only"
   },
   "dependencies": {
     "@react-router/node": "^7.4.1",

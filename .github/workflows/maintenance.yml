@@ -1,0 +1,130 @@
+name: Maintenance Tasks
+
+on:
+  schedule:
+    # Run weekly on Monday at 00:00 UTC
+    - cron: '0 0 * * 1'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  check-updates:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for proper rebasing
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check for Node.js updates
+        id: check-node
+        run: |
+          if ! node scripts/update-node-version.js --check-only; then
+            echo "node_update_needed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check for npm package updates
+        id: check-deps
+        run: |
+          # Install npm-check-updates globally
+          npm install -g npm-check-updates
+          
+          # Check for updates and save to file
+          if ncu --packageFile package.json --format group --target minor > updates.txt; then
+            if [ -s updates.txt ] && ! grep -q "All dependencies match the latest package versions" updates.txt; then
+              echo "deps_update_needed=true" >> $GITHUB_OUTPUT
+            fi
+          fi
+        
+      - name: Create required labels
+        if: steps.check-node.outputs.node_update_needed == 'true' || steps.check-deps.outputs.deps_update_needed == 'true'
+        run: |
+          # Create dependencies label if it doesn't exist
+          gh label create dependencies --color "#0366d6" --description "Pull requests that update a dependency file" || true
+          # Create maintenance label if it doesn't exist
+          gh label create maintenance --color "#fef2c0" --description "Repository maintenance tasks" || true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create maintenance PR
+        if: steps.check-node.outputs.node_update_needed == 'true' || steps.check-deps.outputs.deps_update_needed == 'true'
+        run: |
+          # Set up git
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          
+          # Create branch
+          DATE=$(date '+%Y-%m-%d')
+          BRANCH="maintenance-updates-${DATE}"
+          
+          # Fetch latest changes
+          git fetch origin
+          
+          # Create branch from latest main
+          git checkout -b $BRANCH origin/main
+          
+          # Apply Node.js updates if needed
+          if [ "${{ steps.check-node.outputs.node_update_needed }}" = "true" ]; then
+            node scripts/update-node-version.js
+          fi
+          
+          # Apply package updates if needed
+          if [ "${{ steps.check-deps.outputs.deps_update_needed }}" = "true" ]; then
+            ncu -u --target minor
+            npm install
+          fi
+          
+          # Create commit message
+          MSG="chore: maintenance updates\n\n"
+          if [ "${{ steps.check-node.outputs.node_update_needed }}" = "true" ]; then
+            MSG="${MSG}• Updated Node.js to latest LTS version\n"
+          fi
+          if [ "${{ steps.check-deps.outputs.deps_update_needed }}" = "true" ]; then
+            MSG="${MSG}• Updated npm packages:\n"
+            while IFS= read -r line; do
+              MSG="${MSG}  - ${line}\n"
+            done < updates.txt
+          fi
+          
+          # Commit changes
+          git add .
+          git commit -m "${MSG}"
+          
+          # Push with force-with-lease for safety
+          git push --force-with-lease origin $BRANCH || {
+            # If push fails, try to rebase and push again
+            git fetch origin
+            git rebase origin/main
+            git push --force-with-lease origin $BRANCH
+          }
+          
+          # Create PR body with simpler formatting
+          BODY="🔄 Maintenance Updates"
+          
+          if [ "${{ steps.check-node.outputs.node_update_needed }}" = "true" ]; then
+            BODY="${BODY} | 📦 Node.js: Updated to latest LTS version"
+          fi
+          
+          if [ "${{ steps.check-deps.outputs.deps_update_needed }}" = "true" ]; then
+            BODY="${BODY} | 📚 Package Updates: | $(cat updates.txt)"
+          fi
+          
+          BODY="${BODY} | ⚠️ Please review changes and run tests before merging."
+          
+          # Create PR using GitHub CLI
+          gh pr create \
+            --title "chore: 🔄 weekly maintenance updates" \
+            --body "$BODY" \
+            --label "dependencies,maintenance" \
+            --base main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

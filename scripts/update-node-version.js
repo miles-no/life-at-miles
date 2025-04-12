@@ -81,6 +81,29 @@ function updateDockerfile(nodeVersion) {
   console.log(`✅ Updated Dockerfile to use Node.js ${nodeVersion}-slim.`)
 }
 
+// Check if current version matches latest LTS
+async function checkCurrentVersion() {
+  const packageJsonPath = path.join(__dirname, "..", "package.json")
+  const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"))
+  const currentVersion = packageJson.engines?.node
+
+  const ltsVersions = await getLatestLTSVersions()
+  for (const version of ltsVersions) {
+    const dockerImageExists = await checkDockerImageExists(version)
+    if (dockerImageExists) {
+      if (version !== currentVersion) {
+        console.log(
+          `📢 New Node.js LTS version ${version} is available (current: ${currentVersion})`,
+        )
+        process.exit(1) // Exit with error code to indicate update needed
+      } else {
+        console.log(`✅ Already on latest Node.js LTS version ${version}`)
+        process.exit(0)
+      }
+    }
+  }
+}
+
 // Main function to update files
 async function updateNodeVersion() {
   try {
@@ -127,5 +150,10 @@ async function updateNodeVersion() {
   }
 }
 
-// Run the update function
-updateNodeVersion()
+// Main entry point
+const checkOnly = process.argv.includes("--check-only")
+if (checkOnly) {
+  checkCurrentVersion()
+} else {
+  updateNodeVersion()
+}

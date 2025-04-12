@@ -7,6 +7,7 @@
     "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc",
+    "lint": "biome lint .",
     "codefix": "biome check --write .",
     "update-node-version": "node scripts/update-node-version.js"
   },
